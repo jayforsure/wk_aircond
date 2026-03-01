@@ -18,25 +18,31 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 ai_handler = AIHandler()
-wa_client =WhatsAppClient
+wa_client = WhatsAppClient()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("🚀 WK Aircond Bot starting up...")
+    try:
+        settings.validate_required()
+        logger.info("✅ All required environment variables are set")
+    except ValueError as e:
+        logger.error(f"⚠️  CONFIG WARNING: {e}")
+        logger.error("Bot will start but WhatsApp/AI features won't work until env vars are set in Railway dashboard")
     yield
     logger.info("👋 WK Aircond Bot shutting down...")
 
 app = FastAPI(title="WK Aircond WhatsApp Bot", lifespan=lifespan)
 
 
-@app.get('/webhook')
+@app.get("/webhook")
 async def verify_webhook(
     hub_mode: str = Query(None, alias="hub.mode"),
     hub_verify_token: str = Query(None, alias="hub.verify_token"),
     hub_challenge: str = Query(None, alias="hub.challenge"),
 ):
-    """ WhatsApp webhook verification """
-    if hub_mode == "subcribe" and hub_verify_token == settings.WHATSAPP_VERIFY_TOKEN:
+    """WhatsApp webhook verification"""
+    if hub_mode == "subscribe" and hub_verify_token == settings.WHATSAPP_VERIFY_TOKEN:
         logger.info("✅ Webhook verified successfully")
         return PlainTextResponse(hub_challenge)
     raise HTTPException(status_code=403, detail="Verification failed")
@@ -44,7 +50,7 @@ async def verify_webhook(
 
 @app.post("/webhook")
 async def receive_webhook(request: Request):
-    """ Handle incoming whatsApp messages """
+    """Handle incoming WhatsApp messages"""
     try:
         body = await request.json()
         logger.info(f"📨 Incoming webhook: {json.dumps(body, indent=2)}")
@@ -52,12 +58,12 @@ async def receive_webhook(request: Request):
         entry = body.get("entry", [])
         if not entry:
             return {"status": "ok"}
-        
+
         for e in entry:
             for change in e.get("changes", []):
                 value = change.get("value", {})
                 messages = value.get("messages", [])
-                
+
                 for msg in messages:
                     msg_type = msg.get("type")
                     from_number = msg.get("from")
@@ -78,14 +84,14 @@ async def receive_webhook(request: Request):
 
                         # Send reply
                         await wa_client.send_message(from_number, reply)
-                    
+
                     elif msg_type in ("image", "audio", "video", "document"):
                         await wa_client.send_message(
                             from_number,
-                            "Terima kasih! Sila hubungi kami terus untuk pertanyaan dengan gambar. 😊\n\n"
-                            "Thank you! Please contact us directy for inquiries with images."
+                            "Terima kasih! Sila hubungi kami terus untuk pertanyaan dengan fail/gambar. 😊\n\n"
+                            "Thank you! Please contact us directly for inquiries with files/images."
                         )
-    
+
     except Exception as e:
         logger.error(f"❌ Webhook error: {e}", exc_info=True)
 
