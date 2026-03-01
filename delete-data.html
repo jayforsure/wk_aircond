@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete My Data — WK Aircond Service</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --sky: #1a9fd4;
+            --deep: #0a2540;
+            --accent: #00c6ff;
+            --frost: #cce9f5;
+            --ice: #e8f4f8;
+            --red: #e05252
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f7fbfe;
+            color: var(--deep)
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 5%;
+            background: #fff;
+            border-bottom: 1px solid var(--frost)
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--deep);
+            text-decoration: none
+        }
+
+        .logo span {
+            color: var(--sky)
+        }
+
+        nav a.back {
+            color: var(--sky);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500
+        }
+
+        .hero-bar {
+            background: linear-gradient(135deg, var(--deep), #1a9fd4);
+            padding: 3.5rem 5%;
+            color: #fff
+        }
+
+        .hero-bar p {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem
+        }
+
+        .hero-bar h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900
+        }
+
+        .hero-bar .sub {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.6rem;
+            line-height: 1.6
+        }
+
+        .content {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 4rem 5%
+        }
+
+        .info-box {
+            background: var(--ice);
+            border-left: 4px solid var(--sky);
+            border-radius: 0 8px 8px 0;
+            padding: 1.2rem 1.4rem;
+            margin-bottom: 2.5rem
+        }
+
+        .info-box p {
+            color: var(--deep);
+            line-height: 1.7;
+            font-size: 0.95rem
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--deep);
+            margin-bottom: 0.9rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--frost)
+        }
+
+        p {
+            color: #445;
+            line-height: 1.8;
+            margin-bottom: 0.9rem;
+            font-size: 0.97rem
+        }
+
+        ul {
+            color: #445;
+            line-height: 1.8;
+            font-size: 0.97rem;
+            padding-left: 1.4rem;
+            margin-bottom: 1.2rem
+        }
+
+        ul li {
+            margin-bottom: 0.5rem
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0 2.5rem
+        }
+
+        .method-card {
+            background: #fff;
+            border: 1px solid var(--frost);
+            border-radius: 12px;
+            padding: 1.6rem
+        }
+
+        .method-card .m-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem
+        }
+
+        .method-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--deep);
+            margin-bottom: 0.4rem
+        }
+
+        .method-card p {
+            font-size: 0.88rem;
+            color: #556;
+            margin-bottom: 1rem;
+            line-height: 1.6
+        }
+
+        .method-card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--sky);
+            color: #fff;
+            padding: 0.55rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s
+        }
+
+        .method-card a:hover {
+            background: var(--deep)
+        }
+
+        .form-section {
+            background: #fff;
+            border: 1px solid var(--frost);
+            border-radius: 14px;
+            padding: 2rem;
+            margin: 2rem 0
+        }
+
+        .form-section h2 {
+            border: none;
+            padding: 0;
+            margin-bottom: 0.5rem
+        }
+
+        .form-section .sub {
+            color: #667;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem
+        }
+
+        label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--deep);
+            margin-bottom: 0.3rem
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid var(--frost);
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--deep);
+            background: #fff;
+            margin-bottom: 1.2rem;
+            outline: none;
+            transition: border-color 0.2s
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--sky)
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--red);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .submit-btn:hover {
+            background: #c94444;
+            transform: translateY(-1px)
+        }
+
+        .success-msg {
+            display: none;
+            background: #e8f8ef;
+            border: 1px solid #a8dbb7;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            color: #1a6e3a;
+            font-weight: 500;
+            margin-top: 1rem
+        }
+
+        .timeline {
+            margin: 1.5rem 0
+        }
+
+        .tl-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            align-items: flex-start
+        }
+
+        .tl-num {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--sky);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem
+        }
+
+        .tl-text h4 {
+            font-weight: 600;
+            color: var(--deep);
+            margin-bottom: 0.2rem
+        }
+
+        .tl-text p {
+            font-size: 0.88rem;
+            color: #667;
+            margin: 0;
+            line-height: 1.6
+        }
+
+        footer {
+            background: var(--deep);
+            color: rgba(255, 255, 255, 0.55);
+            padding: 2rem 5%;
+            text-align: center;
+            font-size: 0.83rem;
+            margin-top: 3rem
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.55);
+            text-decoration: none;
+            margin: 0 0.6rem
+        }
+
+        footer a:hover {
+            color: var(--accent)
+        }
+
+        .flinks {
+            margin-bottom: 0.7rem
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">WK <span>Aircond</span></a>
+        <a href="index.html" class="back">← Back to Home</a>
+    </nav>
+
+    <div class="hero-bar">
+        <p>Your Rights</p>
+        <h1>Delete My Data</h1>
+        <div class="sub">Request deletion of your personal data held by WK Aircond Service</div>
+    </div>
+
+    <div class="content">
+        <div class="info-box">
+            <p>Under Malaysia's <strong>Personal Data Protection Act 2010 (PDPA)</strong> and Meta's platform policies,
+                you have the right to request deletion of your personal data that we have collected. We will process
+                your request within <strong>7 business days</strong>.</p>
+        </div>
+
+        <h2>What Data We Hold</h2>
+        <p>When you interact with our WhatsApp chatbot or contact us for services, we may store:</p>
+        <ul>
+            <li>Your WhatsApp phone number and display name</li>
+            <li>Conversation history with our AI chatbot (auto-deleted after 7 days of inactivity)</li>
+            <li>Service booking details (name, address, appointment info)</li>
+            <li>Service history and job records</li>
+        </ul>
+
+        <h2>How to Request Deletion</h2>
+        <div class="method-grid">
+            <div class="method-card">
+                <div class="m-icon">💬</div>
+                <h3>Via WhatsApp</h3>
+                <p>The fastest way — message us directly on WhatsApp and type "DELETE MY DATA" along with your name.</p>
+                <a
+                    href="https://wa.me/60XXXXXXXXX?text=DELETE%20MY%20DATA%20-%20Please%20delete%20all%20personal%20data%20associated%20with%20my%20number.">Message
+                    Us →</a>
+            </div>
+            <div class="method-card">
+                <div class="m-icon">📋</div>
+                <h3>Via Form Below</h3>
+                <p>Fill in the form below and we'll confirm receipt and process your deletion request within 7 business
+                    days.</p>
+                <a href="#deletion-form">Go to Form →</a>
+            </div>
+        </div>
+
+        <h2>What Happens After Your Request</h2>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-num">1</div>
+                <div class="tl-text">
+                    <h4>Request Received</h4>
+                    <p>We receive your deletion request via WhatsApp or the form below.</p>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-num">2</div>
+                <div class="tl-text">
+                    <h4>Identity Verification</h4>
+                    <p>We verify your identity to confirm you are the data subject making the request.</p>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-num">3</div>
+                <div class="tl-text">
+                    <h4>Data Deletion</h4>
+                    <p>We delete your conversation history, contact data, and booking records from our systems within 7
+                        business days.</p>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-num">4</div>
+                <div class="tl-text">
+                    <h4>Confirmation</h4>
+                    <p>We send you a confirmation that your data has been deleted.</p>
+                </div>
+            </div>
+        </div>
+
+        <p><strong>Note:</strong> Some data may be retained where required by Malaysian law (e.g. financial records for
+            tax purposes) or to resolve any ongoing disputes. We will inform you if this applies.</p>
+
+        <!-- DELETION FORM -->
+        <div class="form-section" id="deletion-form">
+            <h2>Data Deletion Request Form</h2>
+            <p class="sub">Fill in your details below and we'll process your request promptly.</p>
+
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" placeholder="Your full name" required />
+
+            <label for="phone">WhatsApp Phone Number *</label>
+            <input type="tel" id="phone" placeholder="+601X-XXXXXXXX" required />
+
+            <label for="type">What data do you want deleted? *</label>
+            <select id="type">
+                <option value="">Select an option</option>
+                <option value="all">All data (conversation history + booking records)</option>
+                <option value="chat">Conversation / chat history only</option>
+                <option value="booking">Booking and service records only</option>
+            </select>
+
+            <label for="reason">Reason (optional)</label>
+            <textarea id="reason"
+                placeholder="You don't have to provide a reason, but it helps us improve our service."></textarea>
+
+            <button class="submit-btn" onclick="submitForm()">
+                🗑️ Submit Deletion Request
+            </button>
+            <div class="success-msg" id="success-msg">
+                ✅ Your request has been submitted! We will contact you via WhatsApp within 7 business days to confirm
+                deletion.
+            </div>
+        </div>
+
+        <h2>Questions?</h2>
+        <p>If you have any questions about your data or the deletion process, please contact us:</p>
+        <ul>
+            <li><strong>WhatsApp:</strong> <a href="https://wa.me/60XXXXXXXXX"
+                    style="color:var(--sky)">+60X-XXXXXXXX</a></li>
+            <li><strong>Business:</strong> WK Aircond Service (Reg. 002814798U)</li>
+            <li><strong>Reference:</strong> <a href="privacy.html" style="color:var(--sky)">Privacy Policy</a> · <a
+                    href="terms.html" style="color:var(--sky)">Terms of Service</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        <div class="flinks">
+            <a href="index.html">Home</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="delete-data.html">Delete My Data</a>
+        </div>
+        <p>© 2025 WK Aircond Service · Reg. No. 002814798U · Malaysia</p>
+    </footer>
+
+    <script>
+        function submitForm() {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const type = document.getElementById('type').value;
+
+            if (!name || !phone || !type) {
+                alert('Please fill in all required fields (Name, Phone, and Data Type).');
+                return;
+            }
+
+            // Build WhatsApp message
+            const msg = encodeURIComponent(
+                `DATA DELETION REQUEST\n\nName: ${name}\nPhone: ${phone}\nData to delete: ${type}\n\nPlease process my data deletion request.`
+            );
+            const waUrl = `https://wa.me/60XXXXXXXXX?text=${msg}`;
+
+            // Show success message
+            document.getElementById('success-msg').style.display = 'block';
+
+            // Open WhatsApp after short delay
+            setTimeout(() => { window.open(waUrl, '_blank'); }, 800);
+        }
+    </script>
+</body>
+
+</html>
